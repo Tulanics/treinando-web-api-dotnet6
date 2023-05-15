@@ -43,3 +43,5 @@ C:\Alura\dotnet6-web-api\FilmesApi\FilmesApi\bin\Debug\net6.0\AutoMapper.dll
 C:\Alura\dotnet6-web-api\FilmesApi\FilmesApi\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Alura\dotnet6-web-api\FilmesApi\FilmesApi\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
 C:\Alura\dotnet6-web-api\FilmesApi\FilmesApi\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Alura\dotnet6-web-api\FilmesApi\FilmesApi\bin\Debug\net6.0\FilmesApi.xml
+C:\Alura\dotnet6-web-api\FilmesApi\FilmesApi\obj\Debug\net6.0\FilmesApi.xml

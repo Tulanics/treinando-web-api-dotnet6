@@ -21,7 +21,14 @@ public class FilmeController : ControllerBase
         _mapper = mapper;
     }
 
+    ///<summary>
+    ///    Adiciona um filme ao banco de dados
+    ///</summary>
+    ///<param name="filmeDto">Objeto com os campos necessários para criação de um filme</param>
+    ///<returns>IActionResult</returns>
+    ///<response code="201">Caso inserção seja feita com sucesso</response>
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
     public IActionResult AdicionaFilme([FromBody] CreateFilmeDto filmeDto)
     {
         Filme filme = _mapper.Map<Filme>(filmeDto);
@@ -32,6 +39,13 @@ public class FilmeController : ControllerBase
             filme);
     }
 
+    /// <summary>
+    /// Recupera uma lista de filmes do banco de dados
+    /// </summary>
+    /// <param name="skip">Número de filmes que serão pulados</param>
+    /// <param name="take">Número de filmes que serão recuperados</param>
+    /// <returns>Informações dos filmes buscados</returns>
+    /// <response code="200">Com a lista de filmes presentes na base de dados</response>
     [HttpGet]
     public IEnumerable<ReadFilmeDto> RecuperaFilmes([FromQuery] int skip = 0, [FromQuery] int take = 50)
     {
@@ -39,7 +53,16 @@ public class FilmeController : ControllerBase
             _context.Filmes.Skip(skip).Take(take));
     }
 
+    /// <summary>
+    /// Recupera um filme no banco de dados usando seu id
+    /// </summary>
+    /// <param name="id">Id do filme a ser recuperado no banco</param>
+    /// <returns>Informações do filme buscado</returns>
+    /// <response code="200">Caso o id seja existente na base de dados</response>
+    /// <response code="404">Caso o id seja inexistente na base de dados</response>
     [HttpGet("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult RecuperaFilmePorId(int id)
     {
         var filme = _context.Filmes.FirstOrDefault(filme => filme.Id == id);
@@ -48,7 +71,17 @@ public class FilmeController : ControllerBase
         return Ok(filmeDto);
     }
 
+    /// <summary>
+    /// Atualiza um filme no banco de dados usando seu id
+    /// </summary>
+    /// <param name="id">Id do filme a ser atualizado no banco</param>
+    /// <param name="filmeDto">Objeto com os campos necessários para atualização de um filme</param>
+    /// <returns>Sem conteúdo de retorno</returns>
+    /// <response code="204">Caso o id seja existente na base de dados e o filme tenha sido atualizado</response>
+    /// <response code="404">Caso o id seja inexistente na base de dados</response>
     [HttpPut("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult AtualizaFilme(int id,
         [FromBody] UpdateFilmeDto filmeDto)
     {
@@ -59,7 +92,16 @@ public class FilmeController : ControllerBase
         return NoContent();
     }
 
+    /// <summary>
+    /// Deleta um filme no banco de dados usando seu id
+    /// </summary>
+    /// <param name="id">Id do filme a ser atualizado no banco</param>
+    /// <returns>Sem conteúdo de retorno</returns>
+    /// <response code="204">Caso o id seja existente na base de dados e o filme tenha sido atualizado</response>
+    /// <response code="404">Caso o id seja inexistente na base de dados</response>
     [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult DeletaFilme(int id)
     {
         var filme = _context.Filmes.FirstOrDefault(
